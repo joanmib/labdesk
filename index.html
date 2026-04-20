@@ -1584,6 +1584,19 @@ function updateKPIs(){
 // ══════════════════════════════════════════════════════════════
 renderElisaPoints();
 calcSolution();calcDilution();calcMolarity();
+
+// Arranca la autenticación al cargar la página
+supa.auth.getSession().then(({data:{session}})=>{
+  if(session?.user){
+    loadCurrentUser(session.user).then(()=>{
+      showApp();
+      loadExperiments();
+      subscribeRealtime();
+    });
+  } else {
+    showLogin();
+  }
+});
 </script>
 </body>
 </html>
